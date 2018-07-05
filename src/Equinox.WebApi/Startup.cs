@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Equinox.Infra.CrossCutting.Identity.Authorization;
+﻿using Equinox.Infra.CrossCutting.Identity.Authorization;
 using Equinox.Infra.CrossCutting.Identity.Data;
 using Equinox.Infra.CrossCutting.Identity.Models;
 using Equinox.Infra.CrossCutting.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +19,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Equinox.WebApi
 {
-    public class Startup
+  public class Startup
     {
         public IConfigurationRoot Configuration { get; }
 
@@ -56,7 +54,7 @@ namespace Equinox.WebApi
                 options.UseCentralRoutePrefix(new RouteAttribute("api/v{version}"));
             });
 
-            services.AddAutoMapper();
+            services.AddAutoMapperSetup();
 
             services.AddAuthorization(options =>
             {
@@ -103,6 +101,7 @@ namespace Equinox.WebApi
                 c.AllowAnyOrigin();
             });
 
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
 
